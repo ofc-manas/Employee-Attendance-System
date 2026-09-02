@@ -2,11 +2,14 @@ from flask import Flask, render_template , request, redirect, url_for, session, 
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, date
+import os
 
 app = Flask(__name__)
-app.secret_key = "attendance-system-secret-key"
-
-app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///attendance.db"
+app.secret_key = os.environ.get(
+    "SECRET_KEY",
+    "attendance-system-secret-key"
+)
+app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 
 db = SQLAlchemy(app)
@@ -718,6 +721,7 @@ def logout():
     session.clear()
 
     return redirect(url_for("login"))
+
 
 with app.app_context():
     db.create_all()
