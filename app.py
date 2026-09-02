@@ -5,6 +5,8 @@ from datetime import datetime, date
 from zoneinfo import ZoneInfo
 import os
 
+IST = ZoneInfo("Asia/Kolkata")
+
 app = Flask(__name__)
 app.secret_key = os.environ.get(
     "SECRET_KEY",
@@ -423,7 +425,7 @@ def check_in():
 
     user_id = session["user_id"]
 
-    today = date.today()
+    today = datetime.now(IST).date()
 
     existing_attendance = Attendance.query.filter_by(
         user_id=user_id,
@@ -437,7 +439,7 @@ def check_in():
     attendance = Attendance(
         user_id=user_id,
         date=today,
-        check_in=datetime.now(ZoneInfo("Asia/Kolkata")),
+        check_in=datetime.now(IST).replace(tzinfo=None),
         status="Present"
     )
 
@@ -461,7 +463,7 @@ def check_out():
 
     user_id = session["user_id"]
 
-    today = date.today()
+    today = datetime.now(IST).date()
 
     attendance = Attendance.query.filter_by(
         user_id=user_id,
@@ -476,7 +478,7 @@ def check_out():
         flash("You have already checked out today.")
         return redirect(url_for("employee_dashboard"))
 
-    attendance.check_out = datetime.now()
+    attendance.check_out = datetime.now(IST).replace(tzinfo=None)
 
     duration = attendance.check_out - attendance.check_in
 
@@ -500,7 +502,7 @@ def hr_dashboard():
     if session.get("role") != "hr":
         return "Access Denied", 403
 
-    today = date.today()
+    today = datetime.now(IST).date()
 
     # Total employees
     total_employees = User.query.filter_by(
@@ -728,4 +730,3 @@ def logout():
 
 if __name__ == "__main__":
     app.run(debug=True)
-    
