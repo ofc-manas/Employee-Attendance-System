@@ -2,6 +2,7 @@ from flask import Flask, render_template , request, redirect, url_for, session, 
 from flask_sqlalchemy import SQLAlchemy
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime, date
+from zoneinfo import ZoneInfo
 import os
 
 app = Flask(__name__)
@@ -436,7 +437,7 @@ def check_in():
     attendance = Attendance(
         user_id=user_id,
         date=today,
-        check_in=datetime.now(),
+        check_in=datetime.now(ZoneInfo("Asia/Kolkata")),
         status="Present"
     )
 
@@ -723,6 +724,7 @@ def logout():
     session.clear()
 
     return redirect(url_for("login"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)
