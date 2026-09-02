@@ -1,0 +1,711 @@
+/* =========================================
+   EMPLOYEE ATTENDANCE SYSTEM
+   Glassmorphism UI
+   ========================================= */
+
+
+/* ---------- Global ---------- */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(173, 216, 230, 0.35),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 10%,
+            rgba(221, 160, 221, 0.25),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 80% 90%,
+            rgba(144, 238, 210, 0.25),
+            transparent 30%
+        ),
+        linear-gradient(135deg, #f8fbff, #f7f4ff);
+
+    color: #263238;
+
+    overflow-x: hidden;
+}
+
+
+/* ---------- Animated Background ---------- */
+
+body::before,
+body::after {
+    content: "";
+
+    position: fixed;
+
+    width: 280px;
+    height: 280px;
+
+    border-radius: 50%;
+
+    filter: blur(60px);
+
+    opacity: 0.35;
+
+    z-index: -1;
+
+    animation: floatingBlob 10s ease-in-out infinite alternate;
+}
+
+body::before {
+    top: 10%;
+    left: -100px;
+
+    background: rgba(135, 206, 250, 0.45);
+}
+
+body::after {
+    bottom: 5%;
+    right: -100px;
+
+    background: rgba(221, 160, 221, 0.35);
+
+    animation-delay: 3s;
+}
+
+@keyframes floatingBlob {
+
+    0% {
+        transform: translate(0, 0) scale(1);
+    }
+
+    50% {
+        transform: translate(40px, 30px) scale(1.1);
+    }
+
+    100% {
+        transform: translate(-20px, 50px) scale(0.95);
+    }
+}
+
+
+/* =========================================
+   NAVBAR
+   ========================================= */
+
+.glass-navbar {
+    background: rgba(255, 255, 255, 0.82) !important;
+
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+
+    padding: 12px 0;
+
+    animation: navbarSlideDown 0.5s ease;
+}
+
+
+/* Navbar Brand */
+
+.glass-navbar .navbar-brand {
+    color: #26384a !important;
+
+    font-size: 1.05rem;
+
+    font-weight: 600;
+
+    letter-spacing: 0.2px;
+
+    transition: 0.25s ease;
+}
+
+.glass-navbar .navbar-brand:hover {
+    color: #315b7d !important;
+}
+
+
+/* Navbar Buttons */
+
+.glass-navbar .btn {
+    border-radius: 8px !important;
+
+    padding: 7px 16px;
+
+    font-size: 0.9rem;
+
+    font-weight: 500;
+
+    transition: all 0.25s ease;
+}
+
+.glass-navbar .btn:hover {
+    transform: translateY(-1px);
+}
+
+
+/* Logout */
+
+.glass-navbar .btn-outline-danger {
+    border-color: #dc6b6b;
+
+    color: #c94c4c;
+
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.glass-navbar .btn-outline-danger:hover {
+    background: #c94c4c;
+
+    border-color: #c94c4c;
+
+    color: white;
+}
+
+
+/* Login */
+
+.glass-navbar .btn-outline-light {
+    border-color: #7899b5;
+
+    color: #496b87;
+
+    background: rgba(255, 255, 255, 0.6);
+}
+
+.glass-navbar .btn-outline-light:hover {
+    background: #496b87;
+
+    border-color: #496b87;
+
+    color: white;
+}
+
+
+/* Register */
+
+.glass-navbar .btn-light {
+    background: #496b87;
+
+    border-color: #496b87;
+
+    color: white;
+}
+
+.glass-navbar .btn-light:hover {
+    background: #3c5c75;
+
+    border-color: #3c5c75;
+
+    color: white;
+}
+
+
+/* Navbar Animation */
+
+@keyframes navbarSlideDown {
+
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------- Main ---------- */
+
+main {
+    animation: pageFade 0.6s ease;
+}
+
+@keyframes pageFade {
+
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------- Cards ---------- */
+
+.card {
+    background: rgba(255, 255, 255, 0.58) !important;
+
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
+
+    border: 1px solid rgba(255, 255, 255, 0.65) !important;
+
+    border-radius: 18px !important;
+
+    box-shadow:
+        0 10px 35px rgba(80, 90, 120, 0.10) !important;
+
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-3px);
+
+    box-shadow:
+        0 16px 40px rgba(80, 90, 120, 0.16) !important;
+}
+
+.card-body {
+    border-radius: 18px;
+}
+
+
+/* ---------- Headings ---------- */
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-weight: 600;
+}
+
+h2 {
+    letter-spacing: -0.3px;
+}
+
+
+/* ---------- Buttons ---------- */
+
+.btn {
+    border-radius: 10px !important;
+
+    font-weight: 500;
+
+    transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease,
+        background-color 0.25s ease;
+}
+
+.btn:hover {
+    transform: translateY(-2px);
+
+    box-shadow:
+        0 7px 18px rgba(70, 80, 100, 0.15);
+}
+
+.btn:active {
+    transform: translateY(0);
+}
+
+
+/* Primary */
+
+.btn-primary {
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #6c8cff,
+        #8b7cf6
+    );
+}
+
+.btn-primary:hover {
+    background: linear-gradient(
+        135deg,
+        #5d7ff5,
+        #7b6cf0
+    );
+}
+
+
+/* Success */
+
+.btn-success {
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #55c99a,
+        #4db6d6
+    );
+}
+
+
+/* Danger */
+
+.btn-danger {
+    border: none;
+
+    background: linear-gradient(
+        135deg,
+        #f28b9c,
+        #e87591
+    );
+}
+
+
+/* ---------- Forms ---------- */
+
+.form-control,
+.form-select {
+    background: rgba(255, 255, 255, 0.65) !important;
+
+    border: 1px solid rgba(130, 140, 160, 0.25) !important;
+
+    border-radius: 10px !important;
+
+    padding: 11px 14px;
+
+    transition:
+        border-color 0.25s ease,
+        box-shadow 0.25s ease,
+        background 0.25s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background: rgba(255, 255, 255, 0.9) !important;
+
+    border-color: rgba(108, 140, 255, 0.6) !important;
+
+    box-shadow:
+        0 0 0 4px rgba(108, 140, 255, 0.12) !important;
+}
+
+.form-label {
+    color: #37474f;
+
+    margin-bottom: 7px;
+}
+
+
+/* =========================================
+   ATTENDANCE TABLE
+   ========================================= */
+
+.table-responsive {
+    width: 100%;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    border-radius: 14px;
+}
+
+/* Fixed table size */
+.attendance-table {
+    width: 100%;
+    min-width: 900px;
+    table-layout: fixed;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+
+/* =========================================
+   COLUMN WIDTHS
+   ========================================= */
+
+/* Employee */
+.attendance-table th:nth-child(1),
+.attendance-table td:nth-child(1) {
+    width: 180px;
+}
+
+/* Date */
+.attendance-table th:nth-child(2),
+.attendance-table td:nth-child(2) {
+    width: 130px;
+}
+
+/* Check In */
+.attendance-table th:nth-child(3),
+.attendance-table td:nth-child(3) {
+    width: 130px;
+}
+
+/* Check Out */
+.attendance-table th:nth-child(4),
+.attendance-table td:nth-child(4) {
+    width: 130px;
+}
+
+/* Working Hours */
+.attendance-table th:nth-child(5),
+.attendance-table td:nth-child(5) {
+    width: 150px;
+}
+
+/* Status */
+.attendance-table th:nth-child(6),
+.attendance-table td:nth-child(6) {
+    width: 130px;
+    text-align: center;
+}
+
+/* =========================================
+   TABLE CELLS
+   ========================================= */
+
+.attendance-table th,
+.attendance-table td {
+    padding: 12px 14px;
+    vertical-align: middle;
+    white-space: nowrap;
+    box-sizing: border-box;
+}
+
+/* Keep status badge INSIDE its cell */
+.attendance-table td:last-child {
+    text-align: center;
+    vertical-align: middle;
+}
+
+/* Status badges */
+.attendance-table .badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 70px;
+    padding: 7px 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+/* Prevent row content from overflowing */
+.attendance-table td {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* ---------- Alerts ---------- */
+
+.alert {
+    border: 1px solid rgba(255, 255, 255, 0.5);
+
+    border-radius: 12px;
+
+    backdrop-filter: blur(12px);
+
+    -webkit-backdrop-filter: blur(12px);
+
+    animation: alertSlide 0.4s ease;
+}
+
+@keyframes alertSlide {
+
+    from {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* ---------- Dashboard Statistics ---------- */
+
+.row.g-3 .card {
+    min-height: 120px;
+}
+
+.row.g-3 .card h2 {
+    font-size: 2rem;
+
+    margin-top: 8px;
+}
+
+
+/* ---------- Footer ---------- */
+
+footer {
+    background: rgba(255, 255, 255, 0.45) !important;
+
+    backdrop-filter: blur(14px);
+
+    -webkit-backdrop-filter: blur(14px);
+
+    border-top: 1px solid rgba(255, 255, 255, 0.55);
+
+    color: #607d8b;
+}
+
+
+/* ---------- Links ---------- */
+
+a {
+    transition: 0.25s ease;
+}
+
+a:hover {
+    opacity: 0.8;
+}
+
+
+/* ---------- Login/Register ---------- */
+
+.col-md-5 .card,
+.col-md-6 .card {
+    animation: cardAppear 0.7s ease;
+}
+
+@keyframes cardAppear {
+
+    from {
+        opacity: 0;
+        transform: translateY(25px) scale(0.98);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================
+   HR LEAVE MANAGEMENT TABLE
+   ========================================= */
+
+.leave-table-wrapper {
+    width: 100%;
+
+    overflow-x: auto;
+    overflow-y: hidden;
+
+    -webkit-overflow-scrolling: touch;
+}
+
+.leave-table {
+    min-width: 900px;
+
+    width: max-content;
+
+    table-layout: auto;
+}
+
+.leave-table th,
+.leave-table td {
+    padding: 12px 10px;
+
+    vertical-align: middle;
+
+    overflow-wrap: break-word;
+}
+
+
+/* Employee */
+
+.leave-table th:nth-child(1),
+.leave-table td:nth-child(1) {
+    min-width: 150px;
+}
+
+
+/* Leave Type */
+
+.leave-table th:nth-child(2),
+.leave-table td:nth-child(2) {
+    min-width: 140px;
+}
+
+
+/* Start Date */
+
+.leave-table th:nth-child(3),
+.leave-table td:nth-child(3) {
+    min-width: 120px;
+}
+
+
+/* End Date */
+
+.leave-table th:nth-child(4),
+.leave-table td:nth-child(4) {
+    min-width: 120px;
+}
+
+
+/* Reason */
+
+.leave-table th:nth-child(5),
+.leave-table td:nth-child(5) {
+    min-width: 220px;
+
+    max-width: 280px;
+
+    white-space: normal;
+}
+
+
+/* Status */
+
+.leave-table th:nth-child(6),
+.leave-table td:nth-child(6) {
+    min-width: 120px;
+
+    text-align: center;
+}
+
+
+/* Action */
+
+.leave-table th:nth-child(7),
+.leave-table td:nth-child(7) {
+    min-width: 120px;
+
+    text-align: center;
+}
+
+.reason-cell {
+    white-space: normal;
+}
+
+
+/* =========================================
+   MOBILE
+   ========================================= */
+
+@media (max-width: 768px) {
+
+    main {
+        padding-top: 30px !important;
+    }
+
+    .navbar-brand {
+        font-size: 0.95rem;
+    }
+
+    .card {
+        border-radius: 15px !important;
+    }
+
+    .table {
+        font-size: 0.9rem;
+    }
+
+    .btn {
+        margin-bottom: 5px;
+    }
+}

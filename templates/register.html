@@ -1,0 +1,209 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Register | Employee Attendance System
+{% endblock %}
+
+{% block content %}
+
+<div class="row justify-content-center align-items-center"
+     style="min-height: 70vh;">
+
+    <div class="col-12 col-sm-10 col-md-7 col-lg-6">
+
+        <div class="card shadow-lg border-0">
+
+            <div class="card-body p-4 p-md-5">
+
+                <!-- Heading -->
+
+                <div class="text-center mb-4">
+
+
+                    <h2 class="fw-bold mb-2">
+                        Create Account
+                    </h2>
+
+                    <p class="text-muted mb-0">
+                        Join the Employee Attendance System
+                    </p>
+
+                </div>
+
+
+                <!-- Registration Form -->
+
+                <form method="POST">
+
+                    <!-- Full Name -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Full Name
+                        </label>
+
+                        <input
+                            type="text"
+                            name="name"
+                            class="form-control form-control-lg"
+                            placeholder="Enter your name"
+                            autocomplete="name"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Email -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Email
+                        </label>
+
+                        <input
+                            type="email"
+                            name="email"
+                            class="form-control form-control-lg"
+                            placeholder="Enter your email"
+                            autocomplete="email"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Password -->
+
+                    <div class="mb-3">
+
+                        <label class="form-label fw-semibold">
+                            Password
+                        </label>
+
+                        <input
+                            type="password"
+                            name="password"
+                            class="form-control form-control-lg"
+                            placeholder="Create a password"
+                            autocomplete="new-password"
+                            required
+                        >
+
+                    </div>
+
+
+                    <!-- Department -->
+
+                    <div class="mb-4">
+
+                        <label class="form-label fw-semibold">
+                            Department
+                        </label>
+
+                        <select
+                            name="department"
+                            class="form-select form-select-lg"
+                            required
+                        >
+
+                            <option value="">
+                                Select Department
+                            </option>
+
+                            <option value="IT">
+                                IT
+                            </option>
+
+                            <option value="HR">
+                                HR
+                            </option>
+
+                            <option value="Finance">
+                                Finance
+                            </option>
+
+                            <option value="Marketing">
+                                Marketing
+                            </option>
+
+                        </select>
+
+                    </div>
+
+                    <!-- Role -->
+
+<div class="mb-4">
+
+    <label class="form-label fw-semibold">
+        Role
+    </label>
+
+    <select
+        name="role"
+        class="form-select form-select-lg"
+        required
+    >
+
+        <option value="">
+            Select Role
+        </option>
+
+        <option value="employee">
+            Employee
+        </option>
+
+        <option value="hr">
+            HR
+        </option>
+
+    </select>
+
+</div>
+
+
+                    <!-- Register Button -->
+
+                    <button
+                        type="submit"
+                        class="btn btn-success btn-lg w-100 fw-semibold">
+
+                        Create Account
+
+                    </button>
+
+                </form>
+
+
+                <!-- Login Link -->
+
+                <div class="text-center mt-4">
+
+                    <p class="text-muted mb-0">
+
+                        Already have an account?
+
+                        <a href="{{ url_for('login') }}"
+                           class="fw-semibold text-decoration-none">
+
+                            Login here
+
+                        </a>
+
+                    </p>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+

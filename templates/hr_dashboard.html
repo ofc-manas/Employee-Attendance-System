@@ -1,0 +1,332 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+HR Dashboard | Employee Attendance System
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="d-flex flex-wrap justify-content-between
+                align-items-center gap-3 mb-4">
+
+        <div>
+
+            <p class="text-muted mb-1">
+                Human Resources
+            </p>
+
+            <h2 class="fw-semibold mb-1">
+                HR Dashboard
+            </h2>
+
+            <p class="text-muted mb-0">
+                Employee Attendance Management
+            </p>
+
+        </div>
+
+
+        <!-- Navigation -->
+
+        <div class="d-flex flex-wrap gap-2">
+
+            <a href="{{ url_for('hr_attendance') }}"
+               class="btn btn-outline-info">
+
+                Attendance History
+
+            </a>
+
+            <a href="{{ url_for('hr_leave_management') }}"
+               class="btn btn-outline-primary">
+
+                Leave Requests
+
+            </a>
+
+            <a href="{{ url_for('hr_employees') }}"
+               class="btn btn-outline-primary">
+
+                Employees
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- Total Employees -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-2">
+                        Total Employees
+                    </p>
+
+                    <h2 class="fw-semibold mb-1">
+                        {{ total_employees }}
+                    </h2>
+
+                    <small class="text-muted">
+                        Registered employees
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Present Today -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-2">
+                        Present Today
+                    </p>
+
+                    <h2 class="fw-semibold mb-1">
+                        {{ present_today }}
+                    </h2>
+
+                    <small class="text-muted">
+                        Employees present today
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Pending Leave Requests -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-2">
+                        Pending Leave Requests
+                    </p>
+
+                    <h2 class="fw-semibold mb-1">
+                        {{ pending_leaves }}
+                    </h2>
+
+                    <small class="text-muted">
+                        Requests awaiting review
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+<!-- Today's Attendance -->
+
+<div class="card">
+
+    <div class="card-body p-4 p-md-5">
+
+        <!-- Section Header -->
+
+        <div class="d-flex flex-wrap justify-content-between
+                    align-items-center gap-2 mb-4">
+
+            <div>
+
+                <h4 class="fw-semibold mb-1">
+                    Today's Attendance
+                </h4>
+
+                <p class="text-muted mb-0">
+                    {{ today }}
+                </p>
+
+            </div>
+
+            <a href="{{ url_for('hr_attendance') }}"
+               class="btn btn-sm btn-outline-primary">
+                View All Records
+            </a>
+
+        </div>
+
+
+        {% if attendance_data %}
+
+        <div class="table-responsive">
+
+            <table class="table table-hover align-middle attendance-table">
+
+                <thead class="table-dark">
+
+                    <tr>
+                        <th>Employee</th>
+                        <th>Date</th>
+                        <th>Check In</th>
+                        <th>Check Out</th>
+                        <th>Working Hours</th>
+                        <th>Status</th>
+                    </tr>
+
+                </thead>
+
+
+                <tbody>
+
+                    {% for item in attendance_data %}
+
+                    <tr>
+
+                        <!-- Employee -->
+
+                        <td class="fw-semibold">
+                            {{ item.employee.name }}
+                        </td>
+
+
+                        <!-- Date -->
+
+                        <td>
+                            {{ today }}
+                        </td>
+
+
+                        {% if item.attendance %}
+
+                            <!-- Check In -->
+
+                            <td>
+                                {% if item.attendance.check_in %}
+                                    {{ item.attendance.check_in.strftime("%I:%M %p") }}
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+
+
+                            <!-- Check Out -->
+
+                            <td>
+                                {% if item.attendance.check_out %}
+                                    {{ item.attendance.check_out.strftime("%I:%M %p") }}
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+
+
+                            <!-- Working Hours -->
+
+                            <td>
+                                {% if item.attendance.check_out %}
+                                    {{ item.attendance.working_hours or 0 }} hours
+                                {% else %}
+                                    --
+                                {% endif %}
+                            </td>
+
+
+                            <!-- Status -->
+
+                            <td>
+                                {% if item.attendance.status == "Present" %}
+
+                                    <span class="badge bg-success-subtle text-success">
+                                        Present
+                                    </span>
+
+                                {% else %}
+
+                                    <span class="badge bg-danger-subtle text-danger">
+                                        {{ item.attendance.status }}
+                                    </span>
+
+                                {% endif %}
+                            </td>
+
+
+                        {% else %}
+
+                            <!-- No Attendance -->
+
+                            <td>--</td>
+
+                            <td>--</td>
+
+                            <td>--</td>
+
+                            <td>
+                                <span class="badge bg-danger-subtle text-danger">
+                                    Absent
+                                </span>
+                            </td>
+
+                        {% endif %}
+
+                    </tr>
+
+                    {% endfor %}
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+
+        {% else %}
+
+        <!-- Empty State -->
+
+        <div class="text-center py-5">
+
+            <h5 class="fw-semibold">
+                No attendance records found
+            </h5>
+
+            <p class="text-muted mb-0">
+                Employee attendance records will appear here.
+            </p>
+
+        </div>
+
+        {% endif %}
+
+    </div>
+
+</div>
+
+
+</div>
+
+{% endblock %}
+

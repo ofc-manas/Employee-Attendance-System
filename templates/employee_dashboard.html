@@ -1,0 +1,465 @@
+
+{% extends "base.html" %}
+
+{% block title %}
+Employee Dashboard | Employee Attendance System
+{% endblock %}
+
+{% block content %}
+
+<div class="container">
+
+    <!-- Header -->
+
+    <div class="d-flex flex-wrap justify-content-between
+                align-items-center gap-3 mb-4">
+
+        <div>
+
+            <p class="text-muted mb-1">
+                Employee Portal
+            </p>
+
+            <h2 class="fw-semibold mb-1">
+                Employee Dashboard
+            </h2>
+
+            <p class="text-muted mb-0">
+                Welcome, {{ user.name }}
+            </p>
+
+        </div>
+
+
+        <div class="d-flex flex-wrap gap-2">
+
+            <a href="{{ url_for('attendance_history') }}"
+               class="btn btn-outline-primary">
+
+                Attendance History
+
+            </a>
+
+            <a href="{{ url_for('leave_management') }}"
+               class="btn btn-outline-success">
+
+                Leave Management
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- Statistics -->
+
+    <div class="row g-4 mb-4">
+
+
+        <!-- Present -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-2">
+                        Present
+                    </p>
+
+                    <h2 class="fw-semibold mb-1">
+                        {{ present_count }}
+                    </h2>
+
+                    <small class="text-muted">
+                        Total days present
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Absent -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-2">
+                        Absent
+                    </p>
+
+                    <h2 class="fw-semibold mb-1">
+                        {{ absent_count }}
+                    </h2>
+
+                    <small class="text-muted">
+                        Total absent days
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- Remaining Leaves -->
+
+        <div class="col-12 col-md-4">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <p class="text-muted mb-2">
+                        Remaining Leaves
+                    </p>
+
+                    <h2 class="fw-semibold mb-1">
+                        {{ remaining_leaves }}
+                    </h2>
+
+                    <small class="text-muted">
+                        Available leave balance
+                    </small>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Today's Attendance -->
+
+    <div class="card mb-4">
+
+        <div class="card-body p-4 p-md-5">
+
+            <div class="d-flex flex-wrap
+                        justify-content-between
+                        align-items-center
+                        gap-3 mb-4">
+
+                <div>
+
+                    <h4 class="fw-semibold mb-1">
+                        Today's Attendance
+                    </h4>
+
+                    <p class="text-muted mb-0">
+                        {{ today }}
+                    </p>
+
+                </div>
+
+
+                {% if attendance %}
+
+                    {% if attendance.status == "Present" %}
+
+                        <span class="badge bg-success-subtle
+                                     text-success px-3 py-2">
+                            Present
+                        </span>
+
+                    {% else %}
+
+                        <span class="badge bg-danger-subtle
+                                     text-danger px-3 py-2">
+                            {{ attendance.status }}
+                        </span>
+
+                    {% endif %}
+
+                {% else %}
+
+                    <span class="badge bg-secondary-subtle
+                                 text-secondary px-3 py-2">
+                        Not Marked
+                    </span>
+
+                {% endif %}
+
+            </div>
+
+
+            <!-- Attendance Details -->
+
+            <div class="row g-3">
+
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="p-3 rounded-3 bg-light bg-opacity-50">
+
+                        <small class="text-muted d-block mb-1">
+                            Check In
+                        </small>
+
+                        <strong class="fs-5">
+
+                            {% if attendance and attendance.check_in %}
+
+                                {{ attendance.check_in.strftime("%I:%M %p") }}
+
+                            {% else %}
+
+                                --
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="p-3 rounded-3 bg-light bg-opacity-50">
+
+                        <small class="text-muted d-block mb-1">
+                            Check Out
+                        </small>
+
+                        <strong class="fs-5">
+
+                            {% if attendance and attendance.check_out %}
+
+                                {{ attendance.check_out.strftime("%I:%M %p") }}
+
+                            {% else %}
+
+                                --
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="p-3 rounded-3 bg-light bg-opacity-50">
+
+                        <small class="text-muted d-block mb-1">
+                            Working Hours
+                        </small>
+
+                        <strong class="fs-5">
+
+                            {% if attendance %}
+
+                                {{ attendance.working_hours or 0 }}
+                                hours
+
+                            {% else %}
+
+                                --
+
+                            {% endif %}
+
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <div class="col-12 col-sm-6 col-lg-3">
+
+                    <div class="p-3 rounded-3 bg-light bg-opacity-50">
+
+                        <small class="text-muted d-block mb-1">
+                            Date
+                        </small>
+
+                        <strong class="fs-5">
+                            {{ today }}
+                        </strong>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <!-- Attendance Action -->
+
+            <div class="mt-4 pt-4 border-top">
+
+
+                {% if not attendance %}
+
+                    <div class="d-flex flex-wrap
+                                justify-content-between
+                                align-items-center gap-3">
+
+                        <div>
+
+                            <h6 class="fw-semibold mb-1">
+                                Attendance not marked
+                            </h6>
+
+                            <p class="text-muted mb-0">
+                                Please check in to mark your attendance.
+                            </p>
+
+                        </div>
+
+
+                        <form action="{{ url_for('check_in') }}"
+                              method="POST">
+
+                            <button type="submit"
+                                    class="btn btn-success px-4">
+
+                                Check In
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                {% elif not attendance.check_out %}
+
+                    <div class="d-flex flex-wrap
+                                justify-content-between
+                                align-items-center gap-3">
+
+                        <div>
+
+                            <h6 class="fw-semibold mb-1">
+                                Attendance marked
+                            </h6>
+
+                            <p class="text-muted mb-0">
+                                Please check out when your workday is complete.
+                            </p>
+
+                        </div>
+
+
+                        <form action="{{ url_for('check_out') }}"
+                              method="POST">
+
+                            <button type="submit"
+                                    class="btn btn-danger px-4">
+
+                                Check Out
+
+                            </button>
+
+                        </form>
+
+                    </div>
+
+
+                {% else %}
+
+                    <div class="text-center py-2">
+
+                        <h6 class="fw-semibold mb-1">
+                            Attendance Completed
+                        </h6>
+
+                        <p class="text-muted mb-0">
+                            Today's attendance has been successfully completed.
+                        </p>
+
+                    </div>
+
+                {% endif %}
+
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- Quick Access -->
+
+    <div class="row g-4">
+
+
+        <div class="col-12 col-md-6">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-semibold mb-2">
+                        Attendance
+                    </h5>
+
+                    <p class="text-muted">
+                        Review your previous attendance records.
+                    </p>
+
+                    <a href="{{ url_for('attendance_history') }}"
+                       class="btn btn-outline-primary">
+
+                        View Attendance History
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="col-12 col-md-6">
+
+            <div class="card h-100">
+
+                <div class="card-body p-4">
+
+                    <h5 class="fw-semibold mb-2">
+                        Leave Management
+                    </h5>
+
+                    <p class="text-muted">
+                        Apply for leave and review your leave requests.
+                    </p>
+
+                    <a href="{{ url_for('leave_management') }}"
+                       class="btn btn-outline-success">
+
+                        Manage Leave
+
+                    </a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+{% endblock %}
+
