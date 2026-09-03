@@ -1,69 +1,176 @@
 # Employee Attendance Management System
 
-Employee Attendance Management System is a web-based application developed using Flask to manage employee attendance, working hours, leave requests, and HR operations.
+A web-based Employee Attendance Management System built using Flask and PostgreSQL. The application allows employees to manage their attendance and leave requests, while HR can monitor employees, attendance records, and leave applications through a dedicated HR dashboard.
 
-The system provides separate dashboards for employees and HR. Employees can register, log in, check in and check out, view their working hours, and submit leave requests. HR can manage employees, monitor daily attendance, view attendance history, and manage leave requests.
+## Live Demo
+
+🌐 **Live Application:**  
+https://employee-attendance-system-rose-psi.vercel.app/
+
+---
 
 ## Features
 
-- Employee Registration and Login
-- HR Login
-- Role-Based Dashboard
+### Employee Features
+
+- Employee Registration
+- Employee Login
+- Secure Password Hashing
+- Role-Based Authentication
 - Employee Dashboard
-- HR Dashboard
-- Attendance Check-In and Check-Out
-- Working Hours Calculation
+- Attendance Check-In
+- Attendance Check-Out
+- Automatic Working Hours Calculation
 - Attendance Status Tracking
 - Attendance History
+- Leave Management
 - Leave Request Submission
+- Leave Balance Tracking
+- View Leave Request Status
+- Logout
+
+### HR Features
+
+- HR Login
+- HR Dashboard
+- Total Employee Count
+- Today's Attendance Overview
+- Pending Leave Request Count
+- Employee Attendance Monitoring
+- Attendance History
+- Employee Search
+- Employee Details
+- Employee Attendance Details
+- Employee Leave Details
 - Leave Request Management
-- Employee Management
-- Password Hashing
-- Forgot Password
-- Responsive Glassmorphism UI
+- Approve Leave Requests
+- Reject Leave Requests
+
+### UI Features
+
+- Responsive Design
+- Bootstrap UI
+- Glassmorphism Design
+- Responsive Employee Dashboard
+- Responsive HR Dashboard
+- Status Badges
+- Flash Messages
+- Mobile-Friendly Layout
+
+---
 
 ## Technologies Used
+
+### Backend
 
 - Python
 - Flask
 - Flask-SQLAlchemy
-- SQLite
-- HTML
-- CSS
-- Bootstrap
-- Jinja2
 - Werkzeug
+- Jinja2
 
-## How It Works
+### Database
 
-### Employee
+- PostgreSQL
 
-An employee can create an account and log in to the system. After logging in, the employee is redirected to the Employee Dashboard, where they can manage their attendance and leave requests.
+### Frontend
 
-### HR
+- HTML5
+- CSS3
+- Bootstrap
+- Jinja2 Templates
 
-HR users can log in and access the HR Dashboard. The HR dashboard provides an overview of employees, today's attendance, and pending leave requests. HR can also view attendance records, manage employees, and review leave requests.
+### Deployment
 
-## Attendance System
+- Vercel
 
-The attendance process works as follows:
+### Other
 
-1. Employee logs in.
-2. Employee checks in.
-3. The check-in time is recorded.
-4. Employee checks out after completing work.
-5. Working hours are calculated.
-6. Attendance status is updated.
+- Python `datetime`
+- Python `zoneinfo`
+- Session-Based Authentication
+- Environment Variables
 
-## Leave Management
+---
 
-Employees can submit leave requests by providing the required leave details. HR can review these requests and approve or reject them.
+# System Modules
 
-## Installation
+## 1. Authentication Module
 
-Clone the repository:
+The authentication system provides login and registration functionality.
 
-```bash
-git clone https://github.com/your-username/Employee-Attendance-System.git
+### Employee Registration
 
-## Deploy link : https://employee-attendance-system-rose-psi.vercel.app/
+Employees can create an account by providing:
+
+- Name
+- Email
+- Password
+- Department
+- Role
+
+Passwords are securely hashed before being stored in the database.
+
+### Login
+
+Users log in using their email and password.
+
+After successful authentication:
+
+- Employees are redirected to the Employee Dashboard.
+- HR users are redirected to the HR Dashboard.
+
+---
+
+# 2. Employee Dashboard
+
+The Employee Dashboard provides employees with an overview of their attendance and leave information.
+
+It displays:
+
+- Employee name
+- Total present days
+- Total absent days
+- Remaining leaves
+- Today's attendance
+- Check-in time
+- Check-out time
+- Working hours
+- Attendance status
+
+Employees can also:
+
+- Check In
+- Check Out
+- View Attendance History
+- Manage Leave Requests
+
+---
+
+# 3. Attendance Management
+
+The attendance system allows employees to record their daily working time.
+
+### Check-In
+
+When an employee checks in:
+
+1. The system verifies that the employee is logged in.
+2. The system checks whether attendance has already been marked for the day.
+3. The current Indian Standard Time (IST) is recorded.
+4. The attendance status is set to `Present`.
+
+### Check-Out
+
+When an employee checks out:
+
+1. The system verifies the employee's attendance record.
+2. The current IST time is recorded.
+3. Working hours are calculated automatically.
+
+### Working Hours Calculation
+
+Working hours are calculated using:
+
+```text
+Working Hours = Check-Out Time - Check-In Time
